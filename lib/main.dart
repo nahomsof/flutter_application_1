@@ -5,26 +5,19 @@ extension Log on Object {
   void log() => devtool.log(toString());
 }
 
-abstract class CanRun {
-  String get type {
-    if (this is Cat) {
-      return "this is Cat";
-    } else {
-      return "Something else";
-    }
-   
-  }
+enum Type { cat, dog }
 
-  @mustCallSuper
+abstract class CanRun {
+  final Type type;
+  CanRun({required this.type});
+
   void run() {
     "Cat can run so fast".log();
   }
 }
-class Dog extends CanRun{
-
-}
 
 class Cat extends CanRun {
+  Cat() : super(type: Type.cat);
   @override
   void run() {
     super.run();
@@ -33,10 +26,8 @@ class Cat extends CanRun {
 
 void testIt() {
   final cat = Cat();
-  final dog = Dog();
 
-  cat.type.log();
-  dog.type.log();
+  cat.run();
 }
 
 void main() {
@@ -84,25 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), //
     );
   }
 }
