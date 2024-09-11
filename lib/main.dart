@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtool show log;
 
-extension Log on Object {
+extension Log on Object{
   void log() => devtool.log(toString());
 }
 
@@ -16,17 +16,27 @@ abstract class CanRun {
   }
 }
 
-class Cat extends CanRun {
-  Cat() : super(type: Type.cat);
+mixin Canspeed{
+  int get speed;
+  void run(){
+    "This cat can run at the speed of $speed".log();
+  }
+}
+class Cat with Canspeed {
+  @override
+  // TODO: implement speed
+  int speed = 10;
   @override
   void run() {
     super.run();
+    
   }
 }
 
 void testIt() {
   final cat = Cat();
-
+  cat.run();
+  cat.speed =20;
   cat.run();
 }
 
@@ -60,13 +70,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
